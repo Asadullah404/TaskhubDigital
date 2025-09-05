@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { ScrollProgress } from "@/pages/Index";
+// ✅ import the interface from index.tsx
 
-const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+type HeaderProps = {
+  scrollProgress: ScrollProgress;
+};
+
+const Header = ({ scrollProgress }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Instead of separate scroll listener, use scrollProgress directly
+  const isScrolled = scrollProgress.scrollY > 20;
 
   return (
     <header

@@ -1,30 +1,46 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { ScrollProgress } from "@/pages/Index";
 
 interface Particle {
   id: number;
   x: number;
   y: number;
+  z: number;
   size: number;
-  opacity: number;
-  delay: number;
+  rotationSpeed: number;
+  logo: string; // path to logo
 }
 
-const ParticleBackground = () => {
+const techLogos = [
+  "/logos/python.svg",
+  "/logos/javascript.svg",
+  "/logos/java.svg",
+  "/logos/firebase.svg",
+  "/logos/react.svg",
+  "/logos/nodejs.svg",
+  "/logos/html.svg",
+  "/logos/css.svg",
+   "/logos/content-writing.svg",
+];
+
+const ParticleBackground = ({ scrollProgress }: { scrollProgress: ScrollProgress }) => {
   const [particles, setParticles] = useState<Particle[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const generateParticles = () => {
       const newParticles: Particle[] = [];
-      const particleCount = window.innerWidth < 768 ? 20 : 40;
+      const particleCount = window.innerWidth < 768 ? 50 : 100; // more logos
 
       for (let i = 0; i < particleCount; i++) {
         newParticles.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: Math.random() * 4 + 2,
-          opacity: Math.random() * 0.6 + 0.2,
-          delay: Math.random() * 8,
+          z: Math.random() * 1500 - 750,
+          size: Math.random() * 40 + 20, // 20px – 60px logos
+          rotationSpeed: Math.random() * 1.2 - 0.6,
+          logo: techLogos[Math.floor(Math.random() * techLogos.length)],
         });
       }
 
@@ -32,38 +48,47 @@ const ParticleBackground = () => {
     };
 
     generateParticles();
-    
-    const handleResize = () => {
-      generateParticles();
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", generateParticles);
+    return () => window.removeEventListener("resize", generateParticles);
   }, []);
 
+  const getTransform = (particle: Particle) => {
+    const { progress, velocity } = scrollProgress;
+
+    const zOffset = particle.z + progress * 2500; // fly inside
+    const scale = Math.max(0.2, 1 + zOffset / 1500); // closer → bigger
+    const rotateZ = progress * particle.rotationSpeed * 360 + velocity * 5;
+    const translateY = velocity * particle.rotationSpeed * 20;
+
+    return {
+      transform: `translate3d(${particle.x}%, ${particle.y + translateY}%, ${zOffset}px) 
+                  scale(${scale}) rotateZ(${rotateZ}deg)`,
+      opacity: Math.max(0, Math.min(1, 1 - Math.abs(zOffset) / 2000)), // fade away far objects
+    };
+  };
+
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div
+      ref={containerRef}
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+      style={{ perspective: "8000px", perspectiveOrigin: "50% 50%" }}
+    >
       {particles.map((particle) => (
-        <div
+        <img
           key={particle.id}
-          className="particle absolute rounded-full"
+          src={particle.logo}
+          alt="tech-logo"
           style={{
+            position: "absolute",
             left: `${particle.x}%`,
             top: `${particle.y}%`,
             width: `${particle.size}px`,
             height: `${particle.size}px`,
-            opacity: particle.opacity,
-            animationDelay: `${particle.delay}s`,
-            background: `hsl(var(--primary) / ${particle.opacity})`,
+            willChange: "transform, opacity",
+            ...getTransform(particle),
           }}
         />
       ))}
-      
-      {/* Additional floating elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-primary/5 rounded-full blur-xl animate-float" />
-      <div className="absolute top-40 right-20 w-24 h-24 bg-neon-cyan/10 rounded-full blur-lg animate-float" style={{ animationDelay: '2s' }} />
-      <div className="absolute bottom-40 left-1/4 w-20 h-20 bg-neon-blue/8 rounded-full blur-lg animate-float" style={{ animationDelay: '4s' }} />
-      <div className="absolute bottom-20 right-1/3 w-28 h-28 bg-primary-glow/6 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }} />
     </div>
   );
 };

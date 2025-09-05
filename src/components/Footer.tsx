@@ -1,15 +1,11 @@
-import {
-  MessageCircle,
-  Mail,
-  Phone,
-  MapPin,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Twitter,
-} from "lucide-react";
+import { MessageCircle, Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { ScrollProgress } from "@/pages/Index";
 
-const Footer = () => {
+interface FooterProps {
+  scrollProgress: ScrollProgress; // ✅ Accept scrollProgress
+}
+
+const Footer: React.FC<FooterProps> = ({ scrollProgress }) => {
   const currentYear = new Date().getFullYear();
 
   const handleWhatsAppClick = () => {
@@ -24,13 +20,12 @@ const Footer = () => {
   return (
     <footer
       id="contact"
-      className="bg-background-secondary border-t border-border scroll-mt-20"
+      className="bg-transparent border-t border-border scroll-mt-20"
     >
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Company Info */}
           <div className="space-y-4">
-            {/* ✅ Replaced T + TaskHubDigital with logo */}
             <div className="flex items-center">
               <a href="#home">
                 <img

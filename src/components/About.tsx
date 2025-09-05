@@ -1,8 +1,14 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { Users, Target, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const About = () => {
+export interface AboutProps {
+  scrollProgress: number;
+}
+
+const About: React.FC<AboutProps> = ({ scrollProgress }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -11,8 +17,10 @@ const About = () => {
   }, []);
 
   return (
-    <section id="about" className="py-20 px-4 bg-background-secondary">
-      <div className="container mx-auto max-w-7xl">
+    <section id="about" className="py-20 px-4 bg-transparent relative">
+      {/* ✅ Removed gradient/tint overlay */}
+
+      <div className="container mx-auto max-w-7xl relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
@@ -30,9 +38,7 @@ const About = () => {
           {/* Left Image */}
           <div
             className={`relative rounded-2xl overflow-hidden shadow-lg transition-all duration-1000 ${
-              isVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 -translate-x-12"
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
             }`}
           >
             <img
@@ -45,9 +51,7 @@ const About = () => {
           {/* Right Text */}
           <div
             className={`transition-all duration-1000 ${
-              isVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 translate-x-12"
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
             }`}
           >
             <h3 className="text-3xl md:text-4xl font-bold mb-6">
@@ -69,9 +73,7 @@ const About = () => {
               <div className="text-center p-6 glass-effect rounded-xl hover-lift">
                 <Target className="mx-auto mb-3 text-primary" size={28} />
                 <div className="text-2xl font-bold gradient-text">300+</div>
-                <div className="text-muted-foreground text-sm">
-                  Projects Done
-                </div>
+                <div className="text-muted-foreground text-sm">Projects Done</div>
               </div>
               <div className="text-center p-6 glass-effect rounded-xl hover-lift">
                 <Award className="mx-auto mb-3 text-primary" size={28} />

@@ -1,9 +1,17 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBackground from "@/assets/hero-background.jpg";
+import { Canvas } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
 
-const Hero = () => {
+
+export interface HeroProps {
+  scrollProgress: number; // ✅ ensure type is exported so index.tsx can use
+}
+
+const Hero: React.FC<HeroProps> = ({ scrollProgress }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -21,15 +29,24 @@ const Hero = () => {
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0"
-      style={{
-        backgroundImage: `url(${heroBackground})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 hero-gradient opacity-90" />
+      {/* 3D Starfield Background */}
+      <div className="absolute inset-0 -z-10">
+        <Canvas camera={{ position: [0, 0, 1] }}>
+          <Stars
+            radius={100}
+            depth={80}
+            count={8000}
+            factor={4}
+            saturation={0}
+            fade
+            speed={2 + scrollProgress * 5} // 🚀 speed depends on scroll
+          />
+        </Canvas>
+      </div>
+
+      {/* Overlay Gradient */}
+      <div className="absolute inset-0 hero-gradient opacity-80" />
 
       {/* Content */}
       <div
