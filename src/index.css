@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TaskHubDigital Design System - Professional Dark Theme with Neon Accents */
+
+@layer base {
+  :root {
+    /* Main Background Colors */
+    --background: 225 15% 8%;
+    --background-secondary: 225 12% 12%;
+    --foreground: 210 20% 95%;
+
+    /* Card Colors */
+    --card: 225 12% 10%;
+    --card-hover: 225 15% 14%;
+    --card-foreground: 210 20% 95%;
+
+    /* Primary Brand Colors */
+    --primary: 195 100% 50%;
+    --primary-glow: 195 100% 65%;
+    --primary-foreground: 225 15% 8%;
+
+    /* Neon Accent Colors */
+    --neon-cyan: 180 100% 50%;
+    --neon-blue: 210 100% 55%;
+    --neon-purple: 270 100% 65%;
+
+    /* Secondary Colors */
+    --secondary: 225 10% 20%;
+    --secondary-foreground: 210 20% 85%;
+
+    /* Muted Colors */
+    --muted: 225 8% 16%;
+    --muted-foreground: 215 15% 65%;
+
+    /* Accent Colors */
+    --accent: 225 12% 18%;
+    --accent-foreground: 210 20% 90%;
+
+    /* Status Colors */
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 210 20% 95%;
+    --success: 150 60% 50%;
+    --warning: 45 90% 55%;
+
+    /* Border & Input */
+    --border: 225 8% 20%;
+    --input: 225 8% 18%;
+    --ring: 195 100% 50%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-neon: linear-gradient(45deg, hsl(var(--neon-cyan)), hsl(var(--neon-blue)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--background-secondary)) 50%, hsl(225 20% 6%) 100%);
+
+    /* Shadows */
+    --shadow-neon: 0 0 30px hsl(var(--primary) / 0.3);
+    --shadow-card: 0 8px 32px hsl(225 15% 4% / 0.4);
+    --shadow-elevated: 0 20px 60px hsl(225 15% 4% / 0.6);
+
+    /* Animation Timings */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 12px;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-['Inter'];
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+    overflow-x: hidden;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.5);
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary));
+  }
+}
+
+@layer components {
+  /* Interactive Elements */
+  .neon-glow {
+    box-shadow: var(--shadow-neon);
+    filter: drop-shadow(0 0 20px hsl(var(--primary) / 0.4));
+  }
+
+  .glass-effect {
+    background: hsl(var(--card) / 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .gradient-text {
+    background: var(--gradient-neon);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  /* Animation Classes */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out forwards;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .hover-glow {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-neon);
+    border-color: hsl(var(--primary) / 0.6);
+  }
+
+  /* Custom Cursor */
+  .cursor-trail {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Service Cards */
+  .service-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  .service-card:hover::before {
+    left: 100%;
+  }
+
+  .service-card:hover {
+    background: hsl(var(--card-hover));
+    border-color: hsl(var(--primary) / 0.4);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+@layer utilities {
+  /* Animation Keyframes */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+    }
+    50% { 
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.8);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Particle Background Animation */
+  @keyframes particle-float {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+      opacity: 0.7;
+    }
+    33% {
+      transform: translateY(-30px) translateX(10px);
+      opacity: 1;
+    }
+    66% {
+      transform: translateY(-10px) translateX(-10px);
+      opacity: 0.8;
+    }
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: hsl(var(--primary) / 0.6);
+    border-radius: 50%;
+    animation: particle-float 8s ease-in-out infinite;
+  }
+}
