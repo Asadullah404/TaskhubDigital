@@ -1,14 +1,22 @@
+# Allow Google full access
 User-agent: Googlebot
 Allow: /
 
+# Allow Bing full access
 User-agent: Bingbot
 Allow: /
 
+# Allow Twitter card bot
 User-agent: Twitterbot
 Allow: /
 
+# Allow Facebook crawler (for link previews)
 User-agent: facebookexternalhit
 Allow: /
 
+# Allow all other crawlers
 User-agent: *
 Allow: /
+
+# Optional: Point to sitemap for faster indexing
+Sitemap: https://www.yoursite.com/sitemap.xml
