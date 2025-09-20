@@ -19,4 +19,4 @@ User-agent: *
 Allow: /
 
 # Optional: Point to sitemap for faster indexing
-Sitemap: https://www.yoursite.com/sitemap.xml
+Sitemap: https://www.taskhubdigital.store/sitemap.xml
