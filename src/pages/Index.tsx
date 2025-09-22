@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import ParticleBackground from "@/components/ParticleBackground";
 import About from "@/components/About";
+import { Helmet } from "react-helmet";
 
 export interface ScrollProgress {
   scrollY: number;
@@ -71,16 +72,79 @@ const Index = () => {
           hsl(260, 20%, 6%) 100%)`,
       }}
     >
+      {/* ✅ SEO Meta Tags */}
+      <Helmet>
+        <title>
+          TaskHubDigital – Web Development, SEO, Content Writing & Graphic Design
+        </title>
+        <meta
+          name="description"
+          content="TaskHubDigital offers Web Development, SEO Optimization, Content Writing, and Graphic Design services in Karachi and worldwide. Boost your online presence today."
+        />
+        <meta
+          name="keywords"
+          content="Web Development, SEO Optimization, Content Writing, Graphic Design, Logo Design, Karachi Pakistan, React Development, Next.js Development, Mobile App Development"
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://yourwebsite.com" />
+
+        {/* ✅ Schema.org Structured Data */}
+        <script type="application/ld+json">{`
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "TaskHubDigital",
+            "url": "https://yourwebsite.com",
+            "logo": "https://yourwebsite.com/logo.png",
+            "sameAs": [
+              "https://www.facebook.com/yourpage",
+              "https://www.linkedin.com/company/yourpage"
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Karachi",
+              "addressCountry": "PK"
+            },
+            "description": "TaskHubDigital offers Web Development, SEO Optimization, Content Writing, and Graphic Design services."
+          }
+        `}</script>
+      </Helmet>
+
       <CustomCursor />
       <ParticleBackground scrollProgress={scrollProgress} />
 
+      {/* ✅ Header with anchor links */}
       <Header scrollProgress={scrollProgress} />
+
       <main>
-      <Hero scrollProgress={scrollProgress.progress} />
-        <Services scrollProgress={scrollProgress.progress} />
-        <About scrollProgress={scrollProgress.progress} />
-        <Testimonials scrollProgress={scrollProgress.progress} />
+        {/* ✅ Hero with H1 keyword */}
+        <section id="home">
+          <h1 className="sr-only">
+            TaskHubDigital – Digital Services: Web Development, SEO, Content Writing & Graphic Design
+          </h1>
+          <Hero scrollProgress={scrollProgress.progress} />
+        </section>
+
+        {/* ✅ Services Section */}
+        <section id="services">
+          <h2>Our Digital Services</h2>
+          <Services scrollProgress={scrollProgress.progress} />
+        </section>
+
+        {/* ✅ About Section */}
+        <section id="about">
+          <h2>About TaskHubDigital</h2>
+          <About scrollProgress={scrollProgress.progress} />
+        </section>
+
+        {/* ✅ Testimonials */}
+        <section id="testimonials">
+          <h2>What Our Clients Say</h2>
+          <Testimonials scrollProgress={scrollProgress.progress} />
+        </section>
       </main>
+
+      {/* ✅ Footer with contact info */}
       <Footer scrollProgress={scrollProgress} />
     </div>
   );
