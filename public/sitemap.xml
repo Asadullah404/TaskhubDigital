@@ -9,46 +9,4 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Services Section -->
-  <url>
-    <loc>https://taskhubdigital.store/#services</loc>
-    <lastmod>2025-09-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- About Section -->
-  <url>
-    <loc>https://taskhubdigital.store/#about</loc>
-    <lastmod>2025-09-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Testimonials Section -->
-  <url>
-    <loc>https://taskhubdigital.store/#testimonials</loc>
-    <lastmod>2025-09-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Contact / Footer -->
-  <url>
-    <loc>https://taskhubdigital.store/#contact</loc>
-    <lastmod>2025-09-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
 </urlset>
-
-
-
-
-
-
-
-
-
- -->
